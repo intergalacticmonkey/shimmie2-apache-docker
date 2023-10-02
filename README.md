@@ -14,7 +14,7 @@ Build the Dockerfile (`src/`, relative to the current directory, must contain a 
 $ docker build -t shimmie2-apache --build-arg upload_max_filesize=1G .
 ```
 
-The `upload_max_filesize` arg sets the corresponding `php.ini` setting, which overrides the low default of `2M`.
+The `upload_max_filesize` arg sets the corresponding `php.ini` setting (along with `post_max_size`), which overrides the low default of `2M`.
 
 Set up the Shimmie data directory:
 
@@ -25,7 +25,7 @@ $ mkdir -p /path/to/data && chmod 777 /path/to/data
 Create and run the container:
 
 ```
-$ docker run --name shimmie -p 127.0.0.1:8000:80 -v /path/to/data:/var/www/html/data --restart unless-stopped -d shimmie2-apache
+$ docker run --name shimmie -p 8000:80 -v /path/to/data:/var/www/html/data --restart unless-stopped -d shimmie2-apache
 ```
 
 Navigate to `http://localhost:8000` and follow the prompts to set up your Shimmie instance.

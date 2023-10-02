@@ -25,7 +25,7 @@ $ mkdir -p /path/to/data && chmod 777 /path/to/data
 Create and run the container:
 
 ```
-$ docker run --name shimmie -p 8000:80 -v /path/to/data:/var/www/html/data --restart unless-stopped -d shimmie2-apache
+$ docker run --name shimmie -p 127.0.0.1:8000:80 -v /path/to/data:/var/www/html/data --restart unless-stopped -d shimmie2-apache
 ```
 
 Navigate to `http://localhost:8000` and follow the prompts to set up your Shimmie instance.
@@ -74,6 +74,8 @@ Add this to `/etc/apache2/apache2.conf` to enable password protection:
 </Directory>
 ```
 
+Restart the container with `docker restart shimmie` and the changes will apply.
+
 #### Secure transport
 
 If you enable Apache's password protection, clients without the password can no longer directly access your server. However, in many cases, clients inside your network can still passively observe ("sniff") the traffic on your network, which means they could acquire the password if they are sniffing while you enter it.
@@ -92,7 +94,7 @@ Neither are very great for a private, selfhosted web server.
 
 ##### SSH port forwarding
 
-A much simpler (and possibly more secure) option is to use SSH port forwarding. SSH client software with port forwarding functionality is available for nearly every modern device, including Windows, macOS, Android ([Termux](https://termux.dev), [ConnectBot](https://github.com/connectbot/connectbot)), and even [iOS](https://apps.apple.com/us/app/sshtunnel/id1260223542).
+A much simpler (and possibly more secure) option is to use SSH port forwarding. SSH client software with port forwarding functionality is available for nearly every modern device, including Windows, macOS, Android ([Termux](https://termux.dev), [ConnectBot](https://github.com/connectbot/connectbot), and even [iOS](https://apps.apple.com/us/app/sshtunnel/id1260223542).
 
 On the server side, all you have to do is enable SSH.
 
